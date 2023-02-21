@@ -29,5 +29,5 @@ public:
 int main(int argc, char * argv[])
 {
     Derive a;
-    
+    Base1& base1 = a;
 }

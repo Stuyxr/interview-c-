@@ -67,6 +67,8 @@ int main() {
     cout << endl;
     Person p3 = f1();
     cout << endl;
-
+    f(p3);
+    cout << endl;
+    f(std::move(p3));
     return 0;
 }
