@@ -1,4 +1,3 @@
-
 <!-- TOC -->
 
 - [一、C++内存](#%E4%B8%80c%E5%86%85%E5%AD%98)
@@ -841,9 +840,33 @@ lvalue 是“loactor value”的缩写，可意为存储在内存中、有明确
 - **左值 (lvalue)**（如此称呼的历史原因是，左值可以在赋值表达式的左边出现）是非亡值的泛左值；
 - **右值 (rvalue)**（如此称呼的历史原因是，右值可以在赋值表达式的右边出现）是纯右值或者亡值。
 
+**Q: `i++`和`++i`分别是左值还是右值？**
+
+`i++`是右值，`++i`是左值。
+
+`++(++i)`可以，`++(i++)`不可以。
+
+```c++
+// 前缀形式：
+int &  int ::operator++()  //这里返回的是一个引用形式，就是说函数返回值也可以作为一个左值使用
+{ //函数本身无参，意味着是在自身空间内增加1的
+   * this   += 1;   // 增加
+   return   * this ;   // 取回值
+}
+//后缀形式:
+const int ::operator++( int )  //函数返回值是一个非左值型的，与前缀形式的差别所在。
+{ //函数带参，说明有另外的空间开辟
+   int   oldValue = * this ;   // 取回值
+   ++(* this );   // 增加
+   return   oldValue;   // 返回被取回的值，临时变量
+}
+```
+
+
+
 ### 右值引用的意义
 
-![image-20230221132054389](面试清单.assets/image-20230221132054389.png)
+![image-20230221132054389](C++基础知识.assets/image-20230221132054389.png)
 
 https://zhuanlan.zhihu.com/p/335994370
 
@@ -961,7 +984,7 @@ int main(int argc, char * argv[])
 
 **类型推导**
 
-![image-20230221133157322](面试清单.assets/image-20230221133157322.png)
+![image-20230221133157322](C++基础知识.assets/image-20230221133157322.png)
 
 ### std::forward()作用和实现
 
@@ -1153,3 +1176,9 @@ class B: public virtual A;
 class C: public virtual A;
 class D: public B, public C;
 ```
+
+# 三、STL及其实现
+
+## 3.1 手写list+迭代器
+
+[github项目 MyDoublyLinkedList](https://github.com/Stuyxr/MyDoublyLinkedList)
